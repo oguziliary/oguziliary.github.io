@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for article in articles %}
+    <article class="post-list">
+        <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
+        <p class="post-meta">{{ article.locale_date }} tarihinden</p>
+        <p class="summary">{{ article.summary }}</p>
+        <p class="read-more"><a href="{{ SITEURL }}/{{ article.url }}">Oku &rarr;</a></p>
+    </article>
+    {% endfor %}
+{% endblock %}

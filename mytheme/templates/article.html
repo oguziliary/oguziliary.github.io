@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article>
+    <h1>{{ article.title }}</h1>
+    <p class="post-meta">{{ article.author }} tarafından {{ article.locale_date }} tarihinde</p>
+    {{ article.content }}
+</article>
+{% endblock %}

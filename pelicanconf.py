@@ -1,10 +1,10 @@
 AUTHOR = 'Oğuz Mutlu'
 SITENAME = 'oguziliary'
-SITEURL = ""
+#SITEURL = ""
 
 PATH = "content"
 
-TIMEZONE = 'Europe/Berlin'
+TIMEZONE = 'Europe/London'
 
 DEFAULT_LANG = 'en'
 
@@ -17,19 +17,19 @@ AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (
-    ("Pelican", "https://getpelican.com/"),
-    ("Python.org", "https://www.python.org/"),
-    ("Jinja2", "https://palletsprojects.com/p/jinja/"),
-    ("You can modify those links in your config file", "#"),
+
 )
 
 # Social widget
 SOCIAL = (
-    ("You can add links in your config file", "#"),
-    ("Another social link", "#"),
+    ("goodreads", "https://www.goodreads.com/mroximut"),
 )
 
 DEFAULT_PAGINATION = 10
 
+PLUGINS = ['render_math']
+
+THEME = "mytheme"
+
 # Uncomment following line if you want document-relative URLs when developing
-# RELATIVE_URLS = True
+RELATIVE_URLS = True
