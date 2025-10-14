@@ -3,6 +3,8 @@ SITENAME = 'oguziliary'
 #SITEURL = ""
 
 PATH = "content"
+ARTICLE_PATHS = ['posts']
+PAGE_PATHS = ['pages']
 
 TIMEZONE = 'Europe/London'
 
