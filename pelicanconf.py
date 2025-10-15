@@ -6,7 +6,7 @@ PATH = "content"
 ARTICLE_PATHS = ['posts']
 PAGE_PATHS = ['pages']
 
-TIMEZONE = 'Europe/London'
+TIMEZONE = 'Europe/Istanbul'
 
 DEFAULT_LANG = 'en'
 
