@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% set ROOT = '' if SITEURL in ['','.', '..'] else SITEURL %}
     <title>{{ SITENAME }}</title>
     {% if LANG == 'en' %}
     <link rel="stylesheet" href="/theme/css/variables.css">
@@ -28,9 +29,11 @@
                 <!-- Language switcher -->
                 <span style="float:right">
                     {% if LANG == 'tr' %}
-                        <a href="/en/">EN</a>
+                        
+                        <a href="{{ ROOT }}/en/">EN</a>
                     {% else %}
-                        <a href="/">TR</a>
+                        
+                        <a href="{{ ROOT }}/">TR</a>
                     {% endif %}
                 </span>
             </nav>

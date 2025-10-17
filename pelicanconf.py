@@ -1,6 +1,6 @@
 AUTHOR = 'oux'
 SITENAME = 'oğuziliary'
-#SITEURL = ""
+SITEURL = ''
 
 PATH = "content"
 ARTICLE_PATHS = ['posts']
