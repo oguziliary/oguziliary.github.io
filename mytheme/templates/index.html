@@ -1,12 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% set t = (TEXTS or {}).get(LANG, {}) %}
     {% for article in articles %}
-    <article class="post-list">
-        <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
-        <p class="post-meta">{{ article.locale_date }} tarihinden</p>
-        <p class="summary">{{ article.summary }}</p>
-        <p class="read-more"><a href="{{ SITEURL }}/{{ article.url }}">Oku &rarr;</a></p>
-    </article>
+        {% if article.lang == LANG or (not article.lang) %}
+        <article class="post-list">
+            <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
+            <p class="post-meta">{{ article.locale_date }}</p>
+            <p class="summary">{{ article.summary }}</p>
+            <!-- <p class="read-more"><a href="{{ SITEURL }}/{{ article.url }}">{{ t.get('read_more', 'Read →') }}</a></p> -->
+        </article>
+        {% endif %}
     {% endfor %}
+    {% if articles_paginator and articles_paginator.num_pages > 1 %}
+    <nav class="pagination">
+        {% if articles_page.has_previous() %}
+        <a href="{{ SITEURL }}/{{ articles_previous_page.url }}">{{ t.get('newer', '← Newer') }}</a>
+        {% endif %}
+        {% if articles_page.has_next() %}
+        <a href="{{ SITEURL }}/{{ articles_next_page.url }}">{{ t.get('older', 'Older →') }}</a>
+        {% endif %}
+    </nav>
+    {% endif %}
 {% endblock %}

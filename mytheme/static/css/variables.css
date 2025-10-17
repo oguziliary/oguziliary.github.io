@@ -1,0 +1,38 @@
+/* CSS custom properties for easy theming */
+:root {
+    /* Layout */
+    --container-max-width: 1200px;
+    --container-padding: 40px;
+    --page-padding: 20px;
+
+    /* Colors */
+    --color-page-bg: #fff6dc;         /* html background */
+    --color-body-bg: #fdfdfd;         /* content background */
+    --color-text: #333333;
+    --color-border: #eeeeee;
+    --color-muted: #888888;
+    --color-accent: #007bff;
+
+    /* Typography */
+    --font-family-base: sans-serif;
+    --line-height-base: 1.6;
+
+    /* Effects */
+    --shadow-1: 0 2px 8px rgba(0,0,0,0.05);
+    --radius-1: 5px;
+}
+
+/* Example: dark theme hook (optional)
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-page-bg: #0f1115;
+        --color-body-bg: #161a22;
+        --color-text: #e6e6e6;
+        --color-border: #2a2f3a;
+        --color-muted: #9aa4b2;
+        --color-accent: #4da3ff;
+    }
+}
+*/
+
+

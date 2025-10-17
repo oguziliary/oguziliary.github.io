@@ -1,54 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANG }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ SITENAME }}</title>
-    <style>
-        html {
-            background-color: #faf8f2; /* Creamy background for the whole page */
-        }
-        body {
-            font-family: sans-serif;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 40px;
-            background-color: #fdfdfd; /* A very light, soft off-white for content */
-            border: 1px solid #eee;
-            border-radius: 5px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        header { border-bottom: 1px solid #ccc; margin-bottom: 40px; padding-bottom: 20px; }
-        header h1 { margin: 0; }
-        nav a { margin-right: 15px; color: #007bff; text-decoration: none; }
-
-        /* Post list styling */
-        .post-list { margin-bottom: 20px; border-bottom: 2px solid #ddd; padding-bottom: 20px; }
-        .post-list:last-child { border-bottom: none; }
-        .post-list h2 a { text-decoration: none; color: #333; }
-        .post-list h2 a:hover { text-decoration: underline; }
-        .post-meta { color: #888; font-size: 0.9em; }
-        .summary { margin-top: 10px; margin-bottom: 10px; }
-        .read-more { text-align: right; margin-top: 0; }
-        .read-more a {
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-        .read-more a:hover {
-            text-decoration: underline;
-        }
-
-        /* Article view styling */
-        article h1 { margin-bottom: 5px; }
-    </style>
+    <link rel="stylesheet" href="/{{ THEME_STATIC_DIR or 'theme' }}/css/variables.css">
+    <link rel="stylesheet" href="/{{ THEME_STATIC_DIR or 'theme' }}/css/theme.css">
 </head>
 <body>
 
@@ -56,11 +13,21 @@
         <header>
             <h1><a href="{{ SITEURL }}/" style="text-decoration:none; color: inherit;">{{ SITENAME }}</a></h1>
             <nav>
-                <a href="{{ SITEURL }}/">Yazmıştı olduklarım</a>
+                <a href="{{ SITEURL }}/">{{ (TEXTS or {}).get(LANG, {}).get('nav_posts', 'Posts') }}</a>
 
                 {% for p in pages %}
-                    <a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
+                    {% if p.lang == LANG or (not p.lang) %}
+                        <a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
+                    {% endif %}
                 {% endfor %}
+                <!-- Language switcher -->
+                <span style="float:right">
+                    {% if LANG == 'tr' %}
+                        <a href="/en/">EN</a>
+                    {% else %}
+                        <a href="/">TR</a>
+                    {% endif %}
+                </span>
             </nav>
         </header>
 
