@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ SITENAME }}</title>
-    <link rel="stylesheet" href="/{{ THEME_STATIC_DIR or 'theme' }}/css/variables.css">
-    <link rel="stylesheet" href="/{{ THEME_STATIC_DIR or 'theme' }}/css/theme.css">
+    {% if LANG == 'en' %}
+    <link rel="stylesheet" href="/theme/css/variables.css">
+    <link rel="stylesheet" href="/theme/css/theme.css">
+    {% else %}
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR or 'theme' }}/css/variables.css">
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR or 'theme' }}/css/theme.css">
+    {% endif %}
 </head>
 <body>
 
@@ -23,9 +28,9 @@
                 <!-- Language switcher -->
                 <span style="float:right">
                     {% if LANG == 'tr' %}
-                        <a href="/en/">EN</a>
+                        <a href="{{ SITEURL }}/en/">EN</a>
                     {% else %}
-                        <a href="/">TR</a>
+                        <a href="{{ SITEURL }}/">TR</a>
                     {% endif %}
                 </span>
             </nav>
