@@ -20,7 +20,7 @@
                 {% for p in pages %}
                     
                     {% if p.lang == LANG or (not p.lang) %}
-                        <a href="{{ SITEURL }}{{ p.url }}">{{ p.title }}</a>
+                        <a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
                     {% endif %}
                     
                 {% endfor %}
