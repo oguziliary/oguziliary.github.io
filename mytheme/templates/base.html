@@ -19,7 +19,9 @@
 
                 {% for p in pages %}
                     
-                    <a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
+                    {% if p.lang == LANG or (not p.lang) %}
+                        <a href="{{ SITEURL }}{{ p.url }}">{{ p.title }}</a>
+                    {% endif %}
                     
                 {% endfor %}
                 <!-- Language switcher -->
