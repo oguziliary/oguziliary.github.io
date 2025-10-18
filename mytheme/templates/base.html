@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="{{ LANG }}">
+<html lang="{% block html_lang %}{{ LANG }}{% endblock html_lang %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ SITENAME }}</title>
+    <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
 
-    <link rel="stylesheet" href="{{ ROOT }}/{{ 'theme' }}/css/variables.css">
-    <link rel="stylesheet" href="{{ ROOT }}/{{ 'theme' }}/css/theme.css">
-  
+    <link rel="stylesheet" href="{{ ROOT }}/theme/css/variables.css">
+    <link rel="stylesheet" href="{{ ROOT }}/theme/css/theme.css">
+    
+    {% block head %}{% endblock head %}
 </head>
 <body>
 
@@ -18,20 +19,44 @@
                 <a href="{{ SITEURL }}/">{{ (TEXTS or {}).get(LANG, {}).get('nav_posts', 'Posts') }}</a>
 
                 {% for p in pages %}
-                    
-                    {% if p.lang == LANG or (not p.lang) %}
-                        <a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
-                    {% endif %}
-                    
+                    <a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
                 {% endfor %}
+                
                 <!-- Language switcher -->
                 <span style="float:right">
-                    {% if LANG == 'tr' %}
-                        
-                        <a href="{{ ROOT }}/en/">EN</a>
+                    {% if page %}
+                        <!-- For pages: show translations or fallback to language root -->
+                        {% if page.translations %}
+                            {% for translation in page.translations %}
+                                <a href="{{ SITEURL }}/{{ translation.url }}" hreflang="{{ translation.lang }}">{{ translation.lang|upper }}</a>
+                            {% endfor %}
+                        {% else %}
+                            {% if LANG == 'tr' %}
+                                <a href="{{ ROOT }}/en/">EN</a>
+                            {% else %}
+                                <a href="{{ ROOT }}/tr/">TR</a>
+                            {% endif %}
+                        {% endif %}
+                    {% elif article %}
+                        <!-- For articles: show translations or fallback to language root -->
+                        {% if article.translations %}
+                            {% for translation in article.translations %}
+                                <a href="{{ SITEURL }}/{{ translation.url }}" hreflang="{{ translation.lang }}">{{ translation.lang|upper }}</a>
+                            {% endfor %}
+                        {% else %}
+                            {% if LANG == 'tr' %}
+                                <a href="{{ ROOT }}/en/">EN</a>
+                            {% else %}
+                                <a href="{{ ROOT }}/tr/">TR</a>
+                            {% endif %}
+                        {% endif %}
                     {% else %}
-                        
-                        <a href="{{ ROOT }}/">TR</a>
+                        <!-- For index: simple language switcher -->
+                        {% if LANG == 'tr' %}
+                            <a href="{{ ROOT }}/en/">EN</a>
+                        {% else %}
+                            <a href="{{ ROOT }}/tr/">TR</a>
+                        {% endif %}
                     {% endif %}
                 </span>
             </nav>
@@ -39,7 +64,7 @@
 
         <main>
             {% block content %}
-            {% endblock %}
+            {% endblock content %}
         </main>
     </div>
 

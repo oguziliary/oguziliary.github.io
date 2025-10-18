@@ -66,6 +66,12 @@ TEXTS = {
 if DEFAULT_LANG == 'tr':
     LANG = 'tr'
     I18N_SUBSITES = {
+        'tr': {
+            'SITENAME': 'oğuziliary',
+            'LANG': 'tr',
+            'LOCALE': ('tr_TR.UTF-8', 'C.UTF-8', 'tr_TR'),
+        },
+        
         'en': {
             'SITENAME': 'oguziliary',
             'LANG': 'en',
@@ -80,6 +86,12 @@ else:
             'LANG': 'tr',
             'LOCALE': ('tr_TR.UTF-8', 'C.UTF-8', 'tr_TR'),
         },
+        
+        'en': {
+            'SITENAME': 'oguziliary',
+            'LANG': 'en',
+            'LOCALE': ('en_US.UTF-8', 'C.UTF-8', 'en_US'),
+        },
     }
 
 # Localized date formats per language (Python strftime)
@@ -93,3 +105,19 @@ THEME = "mytheme"
 
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = False
+
+# Article URL and save path
+ARTICLE_URL = 'posts/{slug}.html'
+ARTICLE_SAVE_AS = 'posts/{slug}.html'
+
+# Page URL and save path  
+PAGE_URL = 'pages/{slug}.html'
+PAGE_SAVE_AS = 'pages/{slug}.html'
+
+# Category URL and save path (optional)
+CATEGORY_URL = 'category/{slug}.html'
+CATEGORY_SAVE_AS = 'category/{slug}.html'
+
+# Tag URL and save path (optional)
+TAG_URL = 'tag/{slug}.html'
+TAG_SAVE_AS = 'tag/{slug}.html'

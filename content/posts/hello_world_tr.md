@@ -9,7 +9,7 @@ Lang: tr
 
 ## Merhaba Dünya!
 
-Latex çalışıyor mu diye test edelim.
+Laateh'in çalışıp çalışmadığını oldukça tartışmalı bir önermeyle test edelim: 
 $$
 0 \in \mathbb{N}
 $$

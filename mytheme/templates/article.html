@@ -1,10 +1,22 @@
 {% extends "base.html" %}
+{% block html_lang %}{{ article.lang }}{% endblock %}
+
+{% block title %}{{ SITENAME }} - {{ article.title }}{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  {% import 'translations.html' as translations with context %}
+  {% if translations.entry_hreflang(article) %}
+    {{ translations.entry_hreflang(article) }}
+  {% endif %}
+{% endblock %}
 
 {% block content %}
 <article>
     <h1>{{ article.title }}</h1>
-    {% set t = (TEXTS or {}).get(LANG, {}) %}
+    {% set t = (TEXTS or {}).get(article.lang or LANG, {}) %}
     <p class="post-meta">{{ t.get('by_on', '{author} on {date}').format(author=article.author, date=article.locale_date) }}</p>
+    
     {{ article.content }}
 </article>
 {% endblock %}

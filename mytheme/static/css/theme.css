@@ -66,4 +66,45 @@ nav a {
 
 article h1 { margin-bottom: 5px; }
 
+/* Pagination styling */
+.pagination ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.pagination li {
+    display: inline-block;
+    margin: 0;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 4px 8px;
+    color: var(--color-accent);
+    text-decoration: none;
+    border: 1px solid var(--color-accent);
+    border-radius: 2px;
+    transition: all 0.8s ease;
+}
+
+.pagination a[href*="index"] {
+    padding: 4px 16px;
+}
+
+.pagination a:hover {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+.pagination li:not(:has(a)) {
+    padding: 4px 8px;
+    color: var(--color-text);
+    font-size: 0.9em;
+}
+
 
