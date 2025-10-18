@@ -3,15 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% set ROOT = '' if SITEURL in ['','.', '..'] else SITEURL %}
     <title>{{ SITENAME }}</title>
-    {% if LANG == 'en' %}
-    <link rel="stylesheet" href="/theme/css/variables.css">
-    <link rel="stylesheet" href="/theme/css/theme.css">
-    {% else %}
-    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR or 'theme' }}/css/variables.css">
-    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR or 'theme' }}/css/theme.css">
-    {% endif %}
+
+    <link rel="stylesheet" href="{{ ROOT }}/{{ 'theme' }}/css/variables.css">
+    <link rel="stylesheet" href="{{ ROOT }}/{{ 'theme' }}/css/theme.css">
+  
 </head>
 <body>
 
@@ -22,9 +18,9 @@
                 <a href="{{ SITEURL }}/">{{ (TEXTS or {}).get(LANG, {}).get('nav_posts', 'Posts') }}</a>
 
                 {% for p in pages %}
-                    {% if p.lang == LANG or (not p.lang) %}
-                        <a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
-                    {% endif %}
+                    
+                    <a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
+                    
                 {% endfor %}
                 <!-- Language switcher -->
                 <span style="float:right">
