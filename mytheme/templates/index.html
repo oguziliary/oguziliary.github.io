@@ -1,21 +1,47 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% set current_lang = LANG or DEFAULT_LANG %}
+{% set current_lang = DEFAULT_LANG %}
+{% if page is defined and page %}
+    {% set current_lang = page.lang or DEFAULT_LANG %}
+{% elif LANG is defined and LANG %}
+    {% set current_lang = LANG %}
+{% elif lang is defined and lang %}
+    {% set current_lang = lang %}
+{% endif %}
 {% set t = (TEXTS or {}).get(current_lang, {}) %}
-    {% for article in articles_page.object_list %}
+
+    {% if page is defined and page and page.content %}
+    <section class="home-intro">
+        {{ page.content }}
+    </section>
+    {% endif %}
+
+    {% set source_articles = articles if articles is defined else [] %}
+    {% set ns = namespace(items=[]) %}
+    {% for article in source_articles %}
         {% set article_lang = article.lang or DEFAULT_LANG %}
         {% if article_lang == current_lang %}
-        <article class="post-list">
-            <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
-            <p class="post-meta">{{ article.locale_date }}</p>
-            <p class="summary">{{ article.summary }}</p>
-            <!-- <p class="read-more"><a href="{{ SITEURL }}/{{ article.url }}">{{ t.get('read_more', 'Read →') }}</a></p> -->
-        </article>
+            {% set ns.items = ns.items + [article] %}
+        {% else %}
+            {% for translation in article.translations or [] %}
+                {% if translation.lang == current_lang %}
+                    {% set ns.items = ns.items + [translation] %}
+                {% endif %}
+            {% endfor %}
         {% endif %}
     {% endfor %}
-    
-    {% if articles_page.has_other_pages() %}
-        {% include 'pagination.html' %}
+
+    {% set display_items = ns.items %}
+    {% if DEFAULT_PAGINATION %}
+        {% set display_items = ns.items[:DEFAULT_PAGINATION] %}
     {% endif %}
+
+    {% for article in display_items %}
+    <article class="post-list">
+        <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
+        <p class="post-meta">{{ article.locale_date }}</p>
+        <p class="summary">{{ article.summary }}</p>
+    </article>
+    {% endfor %}
 {% endblock %}

@@ -1,7 +1,6 @@
 AUTHOR = 'oux'
 SITENAME = 'oğuziliary'
 SITEURL = ''
-ROOT = ''
 
 PATH = "content"
 ARTICLE_PATHS = ['posts']
@@ -36,7 +35,9 @@ SOCIAL = (
 DEFAULT_PAGINATION = 10
 
 # Plugins
-PLUGINS = ['render_math', 'i18n_subsites']
+PLUGINS = ['render_math']
+
+DIRECT_TEMPLATES = ['tags', 'categories', 'authors', 'archives']
 
 # Show untranslated content in both languages
 I18N_UNTRANSLATED_ARTICLES = 'keep'
@@ -68,38 +69,6 @@ TEXTS = {
     },
 }
 
-# Generate a subsite only for the non-default language
-if DEFAULT_LANG == 'tr':
-    LANG = 'tr'
-    I18N_SUBSITES = {
-        'tr': {
-            'SITENAME': 'oğuziliary',
-            'LANG': 'tr',
-            'LOCALE': ('tr_TR.UTF-8', 'C.UTF-8', 'tr_TR'),
-        },
-        
-        'en': {
-            'SITENAME': 'oguziliary',
-            'LANG': 'en',
-            'LOCALE': ('en_US.UTF-8', 'C.UTF-8', 'en_US'),
-        },
-    }
-else:
-    LANG = 'en'
-    I18N_SUBSITES = {
-        'tr': {
-            'SITENAME': 'oğuziliary',
-            'LANG': 'tr',
-            'LOCALE': ('tr_TR.UTF-8', 'C.UTF-8', 'tr_TR'),
-        },
-        
-        'en': {
-            'SITENAME': 'oguziliary',
-            'LANG': 'en',
-            'LOCALE': ('en_US.UTF-8', 'C.UTF-8', 'en_US'),
-        },
-    }
-
 # Localized date formats per language (Python strftime)
 DATE_FORMATS = {
     'en': '%B %d, %Y',      # e.g., September 21, 2025
@@ -115,10 +84,14 @@ RELATIVE_URLS = False
 # Article URL and save path
 ARTICLE_URL = 'posts/{slug}.html'
 ARTICLE_SAVE_AS = 'posts/{slug}.html'
+ARTICLE_LANG_URL = 'posts/{slug}-{lang}.html'
+ARTICLE_LANG_SAVE_AS = 'posts/{slug}-{lang}.html'
 
 # Page URL and save path  
 PAGE_URL = 'pages/{slug}.html'
 PAGE_SAVE_AS = 'pages/{slug}.html'
+PAGE_LANG_URL = 'pages/{slug}-{lang}.html'
+PAGE_LANG_SAVE_AS = 'pages/{slug}-{lang}.html'
 
 # Category URL and save path (optional)
 CATEGORY_URL = 'category/{slug}.html'
