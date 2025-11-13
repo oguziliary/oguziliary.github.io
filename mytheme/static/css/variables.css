@@ -1,13 +1,13 @@
 /* CSS custom properties for easy theming */
 :root {
     /* Layout */
-    --container-max-width: 960px;
+    --container-max-width: 850px;
     --container-padding: 40px;
     --page-padding: 20px;
 
     /* Colors */
-    --color-page-bg: #fae3a8;         /* html background */
-    --color-body-bg: #fdefca;         /* content background */
+    --color-page-bg: #fbe8b7;         /* html background */
+    --color-body-bg: #fef7e7;         /* content background */
     --color-text: #2c2620;
     --color-border: #d3cbbd;
     --color-muted: #766d61;
@@ -16,11 +16,11 @@
     --color-code-border: rgba(32, 28, 24, 0.08);
 
     /* Typography */
-    --font-family-base: "Liberation Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --font-family-base: "Inter", "Liberation Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
     --font-family-mono: "Fira Code", "SFMono-Regular", Menlo, Consolas, monospace;
-    --font-size-mono: 1.2rem;
-    --font-size-base: 1.25rem;
-    --line-height-base: 1.6;
+    --font-size-mono: 1.05rem;
+    --font-size-base: 1.15rem;
+    --line-height-base: 1.5;
 
     /* Effects */
     --shadow-1: 0 2px 8px rgba(0,0,0,0.05);
@@ -40,8 +40,8 @@
 }
 
 :root.theme-light {
-    --color-page-bg: #fae3a8;         /* html background */
-    --color-body-bg: #fdefca;         /* content background */
+    --color-page-bg: #fbe8b7;         /* html background */
+    --color-body-bg:#fcf7eb;         /* content background */
     --color-text: #2c2620;
     --color-border: #d3cbbd;
     --color-muted: #766d61;
