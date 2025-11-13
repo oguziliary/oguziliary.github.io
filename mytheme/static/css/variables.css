@@ -6,12 +6,15 @@
     --page-padding: 20px;
 
     /* Colors */
+    /*--color-page-bg: #f3eee3;        */
     --color-page-bg: #fff6dc;         /* html background */
-    --color-body-bg: #fdfdfd;         /* content background */
-    --color-text: #333333;
-    --color-border: #eeeeee;
-    --color-muted: #888888;
-    --color-accent: #007bff;
+    --color-body-bg: #faf5eb;         /* content background */
+    --color-text: #2f2a24;
+    --color-border: #dcd4c6;
+    --color-muted: #7f7365;
+    --color-accent: #3468c5;
+    --color-code-bg: rgba(0,0,0,0.05);
+    --color-code-border: rgba(0,0,0,0.08);
 
     /* Typography */
     --font-family-base: "Liberation Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
@@ -26,23 +29,27 @@
 }
 
 :root.theme-dark {
-    --color-page-bg: #0f1115;
-    --color-body-bg: #161a22;
-    --color-text: #e6e6e6;
-    --color-border: #2a2f3a;
-    --color-muted: #9aa4b2;
-    --color-accent: #4da3ff;
-    --shadow-1: 0 2px 12px rgba(0,0,0,0.4);
+    --color-page-bg: #21262f;
+    --color-body-bg: #2b313d;
+    --color-text: #dfe3ec;
+    --color-border: #3b4251;
+    --color-muted: #9fa9b7;
+    --color-accent: #7d9df4;
+    --shadow-1: 0 2px 12px rgba(0,0,0,0.35);
+    --color-code-bg: rgba(248,249,255,0.08);
+    --color-code-border: rgba(248,249,255,0.16);
 }
 
 :root.theme-light {
-    --color-page-bg: #fff6dc;
-    --color-body-bg: #fdfdfd;
-    --color-text: #333333;
-    --color-border: #eeeeee;
-    --color-muted: #888888;
-    --color-accent: #007bff;
+    --color-page-bg: #f3eee3;
+    --color-body-bg: #faf5eb;
+    --color-text: #2f2a24;
+    --color-border: #dcd4c6;
+    --color-muted: #7f7365;
+    --color-accent: #3468c5;
     --shadow-1: 0 2px 8px rgba(0,0,0,0.05);
+    --color-code-bg: rgba(0,0,0,0.05);
+    --color-code-border: rgba(0,0,0,0.08);
 }
 
 /* Example: dark theme hook (optional)
