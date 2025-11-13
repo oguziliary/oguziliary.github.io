@@ -16,7 +16,7 @@
     <h1>{{ article.title }}</h1>
 {% set current_lang = article.lang or DEFAULT_LANG %}
     {% set t = (TEXTS or {}).get(current_lang, {}) %}
-    <p class="post-meta">{{ t.get('by_on', '{author} on {date}').format(author=article.author, date=article.locale_date) }}</p>
+    <p class="post-meta">{{ t.get('by_on', '{author} on {date}').format(author=article.author, date=article.date|format_date(current_lang)) }}</p>
     
     {{ article.content }}
 </article>

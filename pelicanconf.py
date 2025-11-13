@@ -15,7 +15,7 @@ PAGE_PATHS = ['pages']
 TIMEZONE = 'Europe/Berlin'
 
 # Primary language for the root site
-DEFAULT_LANG = 'tr'
+DEFAULT_LANG = 'en'
 if DEFAULT_LANG == 'tr':
     LOCALE = ('tr_TR.UTF-8', 'C.UTF-8', 'tr_TR')
 else:

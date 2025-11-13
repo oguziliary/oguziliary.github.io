@@ -25,11 +25,7 @@
 
     <div class="container">
         <header>
-            {% if current_lang == DEFAULT_LANG %}
-                {% set home_href = SITEURL ~ '/' %}
-            {% else %}
-                {% set home_href = SITEURL ~ '/index-' ~ current_lang ~ '.html' %}
-            {% endif %}
+            {% set home_href = SITEURL ~ '/index-' ~ current_lang ~ '.html' %}
             <h1><a href="{{ home_href }}" style="text-decoration:none; color: inherit;">{{ SITENAME }}</a></h1>
             <nav>
                 <div class="nav-links">
@@ -47,7 +43,7 @@
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
-                        {% if ns.target and ns.target.slug != 'index' %}
+                        {% if ns.target and ns.target.slug != 'index' and ns.target.status != 'hidden' %}
                             <a href="{{ SITEURL }}/{{ ns.target.url }}">{{ ns.target.title }}</a>
                         {% endif %}
                     {% endfor %}
