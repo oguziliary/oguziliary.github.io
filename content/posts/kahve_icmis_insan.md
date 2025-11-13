@@ -1,7 +1,8 @@
 Title: Kahve içmiş insan
 Date: 2025-11-13 11:00
-Category: deneme 
-Tags: 
+Status: published
+Category: 
+Tags: turkish, aylak adam
 Author: 
 Summary: Kahve içmeye bir davet
 Slug: kahve-icmis-insan

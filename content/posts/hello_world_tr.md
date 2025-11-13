@@ -1,7 +1,8 @@
 Title: Merhaba Dünya
 Date: 2025-10-14 14:00
-Category: 
-Tags: 
+Status: published
+Category:
+Tags: turkish, hello
 Author: 
 Summary: İlk yazı, blogun ilk kışında
 Slug: hello-world

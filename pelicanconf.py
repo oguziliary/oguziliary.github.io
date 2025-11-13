@@ -51,6 +51,9 @@ TEXTS = {
         'by_on': 'by {author} on {date}',
         'newer': '← Newer',
         'older': 'Older →',
+        'categories_label': 'Categories',
+        'tags_label': 'Tags',
+        'languages_label': 'Languages',
     },
     'tr': {
         'nav_posts': 'Yazmıştı olduklarım',
@@ -59,6 +62,9 @@ TEXTS = {
         'by_on': '{author} tarafından {date} tarihinde',
         'newer': '← Yeni',
         'older': 'Eski →',
+        'categories_label': 'Kategoriler',
+        'tags_label': 'Etiketler',
+        'languages_label': 'Diller',
     },
 }
 

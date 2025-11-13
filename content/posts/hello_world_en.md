@@ -1,7 +1,8 @@
 Title: Hello World
 Date: 2025-10-14 14:00
+Status: published
 Category: 
-Tags: 
+Tags: english, hello
 Author: 
 Summary: First post, in a post-blog era.
 Slug: hello-world
