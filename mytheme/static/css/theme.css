@@ -70,6 +70,12 @@ nav {
     text-decoration: none;
 }
 
+.nav-separator {
+    color: var(--color-border);
+    margin: 0 4px;
+    user-select: none;
+}
+
 .nav-controls {
     margin-left: auto;
     display: flex;
@@ -238,6 +244,20 @@ nav {
 }
 
 article h1 { margin-bottom: 5px; }
+
+/* Article content links */
+article a {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+article a:hover {
+    text-decoration: underline;
+}
+
+article a:visited {
+    color: var(--color-accent);
+}
 
 code,
 pre {

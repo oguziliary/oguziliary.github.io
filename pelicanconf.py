@@ -6,6 +6,8 @@ from pelican.utils import order_content  # type: ignore[import]
 
 AUTHOR = 'oux'
 SITENAME = 'oğuziliary'
+SITENAME_TR = 'oğuziliary'
+SITENAME_EN = 'oguziliary'
 SITEURL = ''
 
 PATH = "content"
@@ -36,6 +38,8 @@ LINKS = (
 # Social widget
 SOCIAL = (
     ("goodreads", "https://www.goodreads.com/mroximut"),
+    ("github", "https://github.com/mroximut"),
+    ("linkedin", "https://www.linkedin.com/in/o%C4%9Fuz-mutlu-38a129266/"),
 )
 
 DEFAULT_PAGINATION = 10
@@ -53,22 +57,14 @@ I18N_UNTRANSLATED_PAGES = 'keep'
 TEXTS = {
     'en': {
         'nav_posts': 'Things I happen to have written',
-        'read_more': 'Read →',
         'from_date': 'from',
         'by_on': 'by {author} on {date}',
-        'newer': '← Newer',
-        'older': 'Older →',
-        'categories_label': 'Categories',
         'tags_label': 'Tag',
     },
     'tr': {
         'nav_posts': 'Yazmıştı olduklarım',
-        'read_more': 'Oku →',
         'from_date': 'tarihinden',
         'by_on': '{author} tarafından {date} tarihinde',
-        'newer': '← Yeni',
-        'older': 'Eski →',
-        'categories_label': 'Kategoriler',
         'tags_label': 'Tag',
     },
 }

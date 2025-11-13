@@ -1,6 +1,6 @@
 Title: Merhaba Dünya
 Date: 2025-10-14 14:00
-Status: published
+Status: draft
 Category:
 Tags: turkish, hello
 Author: 

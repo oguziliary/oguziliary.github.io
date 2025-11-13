@@ -8,12 +8,13 @@
 {% elif page is defined and page %}
     {% set current_lang = page.lang or DEFAULT_LANG %}
 {% endif %}
+{% set SITENAME = SITENAME_TR if current_lang == 'tr' else SITENAME_EN %}
 <!DOCTYPE html>
 <html lang="{% block html_lang %}{{ current_lang }}{% endblock html_lang %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
+    <title>{% block title %}{{ SITENAME}}{% endblock title %}</title>
     <script src="{{ SITEURL }}/theme/js/theme-toggle.js"></script>
 
     <link rel="stylesheet" href="{{ SITEURL }}/theme/css/variables.css">
@@ -44,6 +45,7 @@
                             {% endfor %}
                         {% endif %}
                         {% if ns.target and ns.target.slug != 'index' and ns.target.status != 'hidden' %}
+                            <span class="nav-separator">|</span>
                             <a href="{{ SITEURL }}/{{ ns.target.url }}">{{ ns.target.title }}</a>
                         {% endif %}
                     {% endfor %}

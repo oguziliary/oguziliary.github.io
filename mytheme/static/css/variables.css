@@ -6,8 +6,8 @@
     --page-padding: 20px;
 
     /* Colors */
-    --color-page-bg: #f2ede4;         /* html background */
-    --color-body-bg: #f9f4ea;         /* content background */
+    --color-page-bg: #fae3a8;         /* html background */
+    --color-body-bg: #fdefca;         /* content background */
     --color-text: #2c2620;
     --color-border: #d3cbbd;
     --color-muted: #766d61;
@@ -40,8 +40,8 @@
 }
 
 :root.theme-light {
-    --color-page-bg: #f2ede4;
-    --color-body-bg: #f9f4ea;
+    --color-page-bg: #fae3a8;         /* html background */
+    --color-body-bg: #fdefca;         /* content background */
     --color-text: #2c2620;
     --color-border: #d3cbbd;
     --color-muted: #766d61;

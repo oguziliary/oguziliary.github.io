@@ -4,7 +4,7 @@ Status: published
 Category: 
 Tags: english, hello
 Author: 
-Summary: First post, in a post-blog era.
+Summary: First post in blog, in a post-blog era.
 Slug: hello-world
 Lang: en
 
