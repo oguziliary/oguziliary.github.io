@@ -75,6 +75,33 @@ DATE_FORMATS = {
     'tr': '%d %B %Y',       # e.g., 21 Eylül 2025
 }
 
+MONTH_NAMES = {
+    'en': [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December',
+    ],
+    'tr': [
+        'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
+        'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık',
+    ],
+}
+
+
+def format_date(value, lang):
+    fmt = DATE_FORMATS.get(lang, '%Y-%m-%d')
+    month_names = MONTH_NAMES.get(lang)
+
+    if month_names and '%B' in fmt:
+        month_name = month_names[value.month - 1]
+        fmt = fmt.replace('%B', month_name)
+
+    return value.strftime(fmt)
+
+
+JINJA_FILTERS = {
+    'format_date': format_date,
+}
+
 
 THEME = "mytheme"
 

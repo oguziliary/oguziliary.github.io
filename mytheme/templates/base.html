@@ -25,10 +25,15 @@
 
     <div class="container">
         <header>
-            <h1><a href="{{ SITEURL }}/" style="text-decoration:none; color: inherit;">{{ SITENAME }}</a></h1>
+            {% if current_lang == DEFAULT_LANG %}
+                {% set home_href = SITEURL ~ '/' %}
+            {% else %}
+                {% set home_href = SITEURL ~ '/index-' ~ current_lang ~ '.html' %}
+            {% endif %}
+            <h1><a href="{{ home_href }}" style="text-decoration:none; color: inherit;">{{ SITENAME }}</a></h1>
             <nav>
                 <div class="nav-links">
-                    <a href="{{ SITEURL }}/">{{ (TEXTS or {}).get(current_lang, {}).get('nav_posts', 'Posts') }}</a>
+                    <a href="{{ home_href }}">{{ (TEXTS or {}).get(current_lang, {}).get('nav_posts', 'Posts') }}</a>
 
                     {% for p in pages %}
                         {% set ns = namespace(target=None) %}

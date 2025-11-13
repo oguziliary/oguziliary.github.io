@@ -18,29 +18,30 @@
     {% endif %}
 
     {% set source_articles = articles if articles is defined else [] %}
-    {% set ns = namespace(items=[]) %}
+    {% set ns = namespace(items=[], seen=[]) %}
     {% for article in source_articles %}
-        {% set article_lang = article.lang or DEFAULT_LANG %}
-        {% if article_lang == current_lang %}
+        {% if article.url not in ns.seen %}
             {% set ns.items = ns.items + [article] %}
-        {% else %}
-            {% for translation in article.translations or [] %}
-                {% if translation.lang == current_lang %}
-                    {% set ns.items = ns.items + [translation] %}
-                {% endif %}
-            {% endfor %}
+            {% set ns.seen = ns.seen + [article.url] %}
         {% endif %}
+        {% for translation in article.translations or [] %}
+            {% if translation.url not in ns.seen %}
+                {% set ns.items = ns.items + [translation] %}
+                {% set ns.seen = ns.seen + [translation.url] %}
+            {% endif %}
+        {% endfor %}
     {% endfor %}
 
-    {% set display_items = ns.items %}
+    {% set ordered_items = ns.items | sort(attribute='date', reverse=True) %}
+    {% set display_items = ordered_items %}
     {% if DEFAULT_PAGINATION %}
-        {% set display_items = ns.items[:DEFAULT_PAGINATION] %}
+        {% set display_items = ordered_items[:DEFAULT_PAGINATION] %}
     {% endif %}
 
     {% for article in display_items %}
     <article class="post-list">
         <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
-        <p class="post-meta">{{ article.locale_date }}</p>
+        <p class="post-meta">{{ article.date|format_date(current_lang) }}</p>
         <p class="summary">{{ article.summary }}</p>
     </article>
     {% endfor %}
