@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block html_lang %}{{ article.lang }}{% endblock %}
+{% block html_lang %}{{ article.lang or (LANG or DEFAULT_LANG) }}{% endblock %}
 
 {% block title %}{{ SITENAME }} - {{ article.title }}{% endblock %}
 
@@ -14,7 +14,8 @@
 {% block content %}
 <article>
     <h1>{{ article.title }}</h1>
-    {% set t = (TEXTS or {}).get(article.lang or LANG, {}) %}
+    {% set current_lang = article.lang or LANG or DEFAULT_LANG %}
+    {% set t = (TEXTS or {}).get(current_lang, {}) %}
     <p class="post-meta">{{ t.get('by_on', '{author} on {date}').format(author=article.author, date=article.locale_date) }}</p>
     
     {{ article.content }}

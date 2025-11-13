@@ -1,7 +1,7 @@
 /* CSS custom properties for easy theming */
 :root {
     /* Layout */
-    --container-max-width: 1200px;
+    --container-max-width: 960px;
     --container-padding: 40px;
     --page-padding: 20px;
 
@@ -14,7 +14,10 @@
     --color-accent: #007bff;
 
     /* Typography */
-    --font-family-base: sans-serif;
+    --font-family-base: "Liberation Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --font-family-mono: "JetBrains Mono", "Fira Code", "SFMono-Regular", Menlo, Consolas, monospace;
+    --font-size-mono: 1.2rem;
+    --font-size-base: 1.25rem;
     --line-height-base: 1.6;
 
     /* Effects */

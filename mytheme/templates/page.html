@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block html_lang %}{{ page.lang }}{% endblock %}
+{% block html_lang %}{{ page.lang or (LANG or DEFAULT_LANG) }}{% endblock %}
 
 {% block title %}{{ SITENAME }} - {{ page.title }}{% endblock %}
 
