@@ -19,17 +19,21 @@
 
     {% set source_articles = articles if articles is defined else [] %}
     {% set ns = namespace(items=[], seen=[]) %}
+    {% set include_translations = page is defined and page and page.slug == 'index' %}
+
     {% for article in source_articles %}
         {% if article.url not in ns.seen %}
             {% set ns.items = ns.items + [article] %}
             {% set ns.seen = ns.seen + [article.url] %}
         {% endif %}
-        {% for translation in article.translations or [] %}
-            {% if translation.url not in ns.seen %}
-                {% set ns.items = ns.items + [translation] %}
-                {% set ns.seen = ns.seen + [translation.url] %}
-            {% endif %}
-        {% endfor %}
+        {% if include_translations %}
+            {% for translation in article.translations or [] %}
+                {% if translation.url not in ns.seen %}
+                    {% set ns.items = ns.items + [translation] %}
+                    {% set ns.seen = ns.seen + [translation.url] %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     {% endfor %}
 
     {% set ordered_items = ns.items | sort(attribute='date', reverse=True) %}

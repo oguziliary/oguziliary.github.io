@@ -1,3 +1,9 @@
+from collections import OrderedDict, defaultdict
+
+from pelican import signals  # type: ignore[import]
+from pelican.utils import order_content  # type: ignore[import]
+
+
 AUTHOR = 'oux'
 SITENAME = 'oğuziliary'
 SITEURL = ''
@@ -69,7 +75,7 @@ TEXTS = {
     },
 }
 
-# Localized date formats per language (Python strftime)
+
 DATE_FORMATS = {
     'en': '%B %d, %Y',      # e.g., September 21, 2025
     'tr': '%d %B %Y',       # e.g., 21 Eylül 2025
@@ -101,6 +107,36 @@ def format_date(value, lang):
 JINJA_FILTERS = {
     'format_date': format_date,
 }
+
+
+def include_translation_tags(generator):
+    tags_map = defaultdict(list)
+
+    for tag, articles in generator.tags.items():
+        tags_map[tag] = list(articles)
+
+    for translation in getattr(generator, 'translations', []):
+        if getattr(translation, 'tags', None):
+            for tag in translation.tags:
+                if translation not in tags_map[tag]:
+                    tags_map[tag].append(translation)
+
+    for tag, articles in tags_map.items():
+        tags_map[tag] = order_content(
+            list(articles),
+            generator.settings.get('ARTICLE_ORDER_BY', 'reversed-date'),
+        )
+
+    ordered_items = sorted(
+        tags_map.items(),
+        key=lambda item: item[0].name.lower(),
+    )
+
+    generator.tags = OrderedDict(ordered_items)
+    generator.context['tags'] = ordered_items
+
+
+signals.article_generator_finalized.connect(include_translation_tags)
 
 
 THEME = "mytheme"
