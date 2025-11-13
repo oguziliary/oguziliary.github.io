@@ -19,5 +19,41 @@
     <p class="post-meta">{{ t.get('by_on', '{author} on {date}').format(author=article.author, date=article.date|format_date(current_lang)) }}</p>
     
     {{ article.content }}
+    
+    {% if UTTERANCES_REPO %}
+    <div id="utterances-comments" style="margin-top: 40px;"></div>
+    <script src="https://utteranc.es/client.js"
+            repo="{{ UTTERANCES_REPO }}"
+            issue-term="{{ UTTERANCES_ISSUE_TERM }}"
+            theme="preferred-color-scheme"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <script>
+    // Update Utterances theme when site theme changes
+    (function() {
+        function updateUtterancesTheme() {
+            var utterancesFrame = document.querySelector('iframe.utterances-frame');
+            if (utterancesFrame && utterancesFrame.contentWindow) {
+                var isDark = document.documentElement.dataset.theme === 'dark';
+                utterancesFrame.contentWindow.postMessage({
+                    type: 'set-theme',
+                    theme: isDark ? 'github-dark' : 'github-light'
+                }, 'https://utteranc.es');
+            }
+        }
+        
+        // Watch for theme changes
+        var observer = new MutationObserver(updateUtterancesTheme);
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme', 'class']
+        });
+        
+        // Initial theme update after a delay to ensure iframe is loaded
+        setTimeout(updateUtterancesTheme, 1000);
+    })();
+    </script>
+    {% endif %}
 </article>
 {% endblock %}

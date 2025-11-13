@@ -160,3 +160,10 @@ CATEGORY_SAVE_AS = 'category/{slug}.html'
 # Tag URL and save path (optional)
 TAG_URL = 'tag/{slug}.html'
 TAG_SAVE_AS = 'tag/{slug}.html'
+
+# Utterances comments configuration
+# Set this to your GitHub repository (e.g., 'username/repo-name')
+# You'll also need to install the utterances app: https://github.com/apps/utterances
+UTTERANCES_REPO = 'oguziliary/oguziliary.github.io'  # e.g., 'mroximut/blog' or 'mroximut/mroximut.github.io'
+UTTERANCES_ISSUE_TERM = 'pathname'  # Options: 'pathname', 'url', 'title', 'og:title'
+UTTERANCES_THEME = 'github-light'  # Options: 'github-light', 'github-dark', 'preferred-color-scheme', 'github-dark-orange', 'icy-dark', 'dark-blue', 'photon-dark', 'boxy-light'
