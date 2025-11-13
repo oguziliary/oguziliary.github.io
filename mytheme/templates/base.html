@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+    <script src="{{ ROOT }}/theme/js/theme-toggle.js"></script>
+
     <link rel="stylesheet" href="{{ ROOT }}/theme/css/variables.css">
     <link rel="stylesheet" href="{{ ROOT }}/theme/css/theme.css">
     
@@ -21,40 +23,51 @@
         <header>
             <h1><a href="{{ SITEURL }}/" style="text-decoration:none; color: inherit;">{{ SITENAME }}</a></h1>
             <nav>
-                <a href="{{ SITEURL }}/">{{ (TEXTS or {}).get(current_lang, {}).get('nav_posts', 'Posts') }}</a>
+                <div class="nav-links">
+                    <a href="{{ SITEURL }}/">{{ (TEXTS or {}).get(current_lang, {}).get('nav_posts', 'Posts') }}</a>
 
-                {% for p in pages %}
-                    <a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
-                {% endfor %}
-                
-                <!-- Language switcher -->
-                <span style="float:right">
-                    {% if page %}
-                        <!-- For pages: show translations or fallback to language root -->
-                        {% if page.translations %}
-                            {% for translation in page.translations %}
-                                <a href="{{ SITEURL }}/{{ translation.url }}" hreflang="{{ translation.lang }}">{{ translation.lang|upper }}</a>
-                            {% endfor %}
+                    {% for p in pages %}
+                        <a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a>
+                    {% endfor %}
+                </div>
+
+                <div class="nav-controls">
+                    <button type="button"
+                            id="theme-toggle"
+                            class="theme-toggle"
+                            aria-pressed="false"
+                            aria-label="Switch to dark mode">
+                        Dark
+                    </button>
+
+                    <div class="language-switcher">
+                        {% if page %}
+                            <!-- For pages: show translations or fallback to language root -->
+                            {% if page.translations %}
+                                {% for translation in page.translations %}
+                                    <a href="{{ SITEURL }}/{{ translation.url }}" hreflang="{{ translation.lang }}">{{ translation.lang|upper }}</a>
+                                {% endfor %}
+                            {% else %}
+                                {% set switch_lang = 'en' if current_lang == 'tr' else 'tr' %}
+                                <a href="{{ ROOT }}/{{ switch_lang }}/">{{ switch_lang|upper }}</a>
+                            {% endif %}
+                        {% elif article %}
+                            <!-- For articles: show translations or fallback to language root -->
+                            {% if article.translations %}
+                                {% for translation in article.translations %}
+                                    <a href="{{ SITEURL }}/{{ translation.url }}" hreflang="{{ translation.lang }}">{{ translation.lang|upper }}</a>
+                                {% endfor %}
+                            {% else %}
+                                {% set switch_lang = 'en' if current_lang == 'tr' else 'tr' %}
+                                <a href="{{ ROOT }}/{{ switch_lang }}/">{{ switch_lang|upper }}</a>
+                            {% endif %}
                         {% else %}
+                            <!-- For index: simple language switcher -->
                             {% set switch_lang = 'en' if current_lang == 'tr' else 'tr' %}
                             <a href="{{ ROOT }}/{{ switch_lang }}/">{{ switch_lang|upper }}</a>
                         {% endif %}
-                    {% elif article %}
-                        <!-- For articles: show translations or fallback to language root -->
-                        {% if article.translations %}
-                            {% for translation in article.translations %}
-                                <a href="{{ SITEURL }}/{{ translation.url }}" hreflang="{{ translation.lang }}">{{ translation.lang|upper }}</a>
-                            {% endfor %}
-                        {% else %}
-                            {% set switch_lang = 'en' if current_lang == 'tr' else 'tr' %}
-                            <a href="{{ ROOT }}/{{ switch_lang }}/">{{ switch_lang|upper }}</a>
-                        {% endif %}
-                    {% else %}
-                        <!-- For index: simple language switcher -->
-                        {% set switch_lang = 'en' if current_lang == 'tr' else 'tr' %}
-                        <a href="{{ ROOT }}/{{ switch_lang }}/">{{ switch_lang|upper }}</a>
-                    {% endif %}
-                </span>
+                    </div>
+                </div>
             </nav>
         </header>
 
@@ -63,6 +76,5 @@
             {% endblock content %}
         </main>
     </div>
-
 </body>
 </html>
