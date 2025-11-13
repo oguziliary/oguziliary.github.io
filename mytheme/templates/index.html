@@ -55,25 +55,7 @@
     </div>
 
     {% if is_index_page and tags is defined %}
-    <aside class="sidebar">
-        <div class="sidebar-section">
-            <h3 class="sidebar-heading">{{ t.get('tags_label', 'Tags') }}</h3>
-            {% if tags %}
-                <ul class="sidebar-list">
-                    {% for tag, articles_list in tags %}
-                        <li class="sidebar-item">
-                            <a href="{{ SITEURL }}/tag/{{ tag.slug }}.html" class="sidebar-link">
-                                <span>{{ tag.name }}</span>
-                                <span class="sidebar-count">({{ articles_list|length }})</span>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p class="sidebar-empty">{{ t.get('tags_label', 'Tags') }}</p>
-            {% endif %}
-        </div>
-    </aside>
+        {% include 'tags_sidebar.html' %}
     {% endif %}
 </div>
 {% endblock %}

@@ -59,8 +59,7 @@ TEXTS = {
         'newer': '← Newer',
         'older': 'Older →',
         'categories_label': 'Categories',
-        'tags_label': 'Tags',
-        'languages_label': 'Languages',
+        'tags_label': 'Tag',
     },
     'tr': {
         'nav_posts': 'Yazmıştı olduklarım',
@@ -70,8 +69,7 @@ TEXTS = {
         'newer': '← Yeni',
         'older': 'Eski →',
         'categories_label': 'Kategoriler',
-        'tags_label': 'Etiketler',
-        'languages_label': 'Diller',
+        'tags_label': 'Tag',
     },
 }
 
@@ -92,6 +90,9 @@ MONTH_NAMES = {
     ],
 }
 
+ENGLISH_TAGS = ["english"]
+
+SUPERIOR_TAGS = ["english", "turkish"]
 
 def format_date(value, lang):
     fmt = DATE_FORMATS.get(lang, '%Y-%m-%d')

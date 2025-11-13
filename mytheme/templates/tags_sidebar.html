@@ -1,0 +1,41 @@
+{% if tags is defined %}
+<aside class="sidebar">
+    <div class="sidebar-section">
+        <h3 class="sidebar-heading">{{ t.get('tags_label', 'Tags') }}</h3>
+        {% if tags %}
+            {% set ns_tags = namespace(superior=[], other=[]) %}
+            {% for tag_item, articles_list in tags %}
+                {% if tag_item.name in (SUPERIOR_TAGS or []) %}
+                    {% set ns_tags.superior = ns_tags.superior + [(tag_item, articles_list)] %}
+                {% else %}
+                    {% set ns_tags.other = ns_tags.other + [(tag_item, articles_list)] %}
+                {% endif %}
+            {% endfor %}
+            <ul class="sidebar-list">
+                {% for tag_item, articles_list in ns_tags.superior %}
+                    <li class="sidebar-item">
+                        <a href="{{ SITEURL }}/tag/{{ tag_item.slug }}.html" class="sidebar-link">
+                            <span>{{ tag_item.name }}</span>
+                            <span class="sidebar-count">({{ articles_list|length }})</span>
+                        </a>
+                    </li>
+                {% endfor %}
+                {% if ns_tags.superior and ns_tags.other %}
+                    <li class="sidebar-separator"></li>
+                {% endif %}
+                {% for tag_item, articles_list in ns_tags.other %}
+                    <li class="sidebar-item">
+                        <a href="{{ SITEURL }}/tag/{{ tag_item.slug }}.html" class="sidebar-link">
+                            <span>{{ tag_item.name }}</span>
+                            <span class="sidebar-count">({{ articles_list|length }})</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="sidebar-empty">{{ t.get('tags_label', 'Tags') }}</p>
+        {% endif %}
+    </div>
+</aside>
+{% endif %}
+

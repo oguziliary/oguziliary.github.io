@@ -154,6 +154,13 @@ nav {
     display: flex;
 }
 
+.sidebar-separator {
+    height: 1px;
+    background-color: var(--color-border);
+    margin: 8px 0;
+    list-style: none;
+}
+
 .sidebar-link {
     display: flex;
     justify-content: space-between;
