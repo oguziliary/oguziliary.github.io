@@ -10,43 +10,70 @@
     {% set current_lang = lang %}
 {% endif %}
 {% set t = (TEXTS or {}).get(current_lang, {}) %}
+{% set is_index_page = page is defined and page and page.slug == 'index' %}
 
-    {% if page is defined and page and page.content %}
-    <section class="home-intro">
-        {{ page.content }}
-    </section>
-    {% endif %}
-
-    {% set source_articles = articles if articles is defined else [] %}
-    {% set ns = namespace(items=[], seen=[]) %}
-    {% set include_translations = page is defined and page and page.slug == 'index' %}
-
-    {% for article in source_articles %}
-        {% if article.url not in ns.seen %}
-            {% set ns.items = ns.items + [article] %}
-            {% set ns.seen = ns.seen + [article.url] %}
+<div class="content-layout">
+    <div class="content-main">
+        {% if page is defined and page and page.content %}
+        <section class="home-intro">
+            {{ page.content }}
+        </section>
         {% endif %}
-        {% if include_translations %}
-            {% for translation in article.translations or [] %}
-                {% if translation.url not in ns.seen %}
-                    {% set ns.items = ns.items + [translation] %}
-                    {% set ns.seen = ns.seen + [translation.url] %}
-                {% endif %}
-            {% endfor %}
+
+        {% set source_articles = articles if articles is defined else [] %}
+        {% set ns = namespace(items=[], seen=[]) %}
+        {% set include_translations = is_index_page %}
+
+        {% for article in source_articles %}
+            {% if article.url not in ns.seen %}
+                {% set ns.items = ns.items + [article] %}
+                {% set ns.seen = ns.seen + [article.url] %}
+            {% endif %}
+            {% if include_translations %}
+                {% for translation in article.translations or [] %}
+                    {% if translation.url not in ns.seen %}
+                        {% set ns.items = ns.items + [translation] %}
+                        {% set ns.seen = ns.seen + [translation.url] %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% set ordered_items = ns.items | sort(attribute='date', reverse=True) %}
+        {% set display_items = ordered_items %}
+        {% if DEFAULT_PAGINATION %}
+            {% set display_items = ordered_items[:DEFAULT_PAGINATION] %}
         {% endif %}
-    {% endfor %}
 
-    {% set ordered_items = ns.items | sort(attribute='date', reverse=True) %}
-    {% set display_items = ordered_items %}
-    {% if DEFAULT_PAGINATION %}
-        {% set display_items = ordered_items[:DEFAULT_PAGINATION] %}
+        {% for article in display_items %}
+        <article class="post-list">
+            <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
+            <p class="post-meta">{{ article.date|format_date(current_lang) }}</p>
+            <p class="summary">{{ article.summary }}</p>
+        </article>
+        {% endfor %}
+    </div>
+
+    {% if is_index_page and tags is defined %}
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <h3 class="sidebar-heading">{{ t.get('tags_label', 'Tags') }}</h3>
+            {% if tags %}
+                <ul class="sidebar-list">
+                    {% for tag, articles_list in tags %}
+                        <li class="sidebar-item">
+                            <a href="{{ SITEURL }}/tag/{{ tag.slug }}.html" class="sidebar-link">
+                                <span>{{ tag.name }}</span>
+                                <span class="sidebar-count">({{ articles_list|length }})</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="sidebar-empty">{{ t.get('tags_label', 'Tags') }}</p>
+            {% endif %}
+        </div>
+    </aside>
     {% endif %}
-
-    {% for article in display_items %}
-    <article class="post-list">
-        <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
-        <p class="post-meta">{{ article.date|format_date(current_lang) }}</p>
-        <p class="summary">{{ article.summary }}</p>
-    </article>
-    {% endfor %}
+</div>
 {% endblock %}

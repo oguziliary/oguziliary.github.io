@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}{{ SITENAME }} - {{ tag.name }}{% endblock %}
+
+{% block content %}
+{% set current_lang = DEFAULT_LANG %}
+{% if LANG is defined and LANG %}
+    {% set current_lang = LANG %}
+{% elif lang is defined and lang %}
+    {% set current_lang = lang %}
+{% endif %}
+{% set t = (TEXTS or {}).get(current_lang, {}) %}
+
+<div class="content-layout">
+    <div class="content-main">
+        <section class="tag-header">
+            <h1 class="tag-title">{{ tag.name }}</h1>
+            <p class="tag-count">{{ articles|length }} {{ 'article' if articles|length == 1 else 'articles' }}</p>
+        </section>
+
+        {% for article in articles %}
+        <article class="post-list">
+            <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
+            <p class="post-meta">{{ article.date|format_date(article.lang or current_lang) }}</p>
+            <p class="summary">{{ article.summary }}</p>
+        </article>
+        {% endfor %}
+    </div>
+
+    {% if tags is defined %}
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <h3 class="sidebar-heading">{{ t.get('tags_label', 'Tags') }}</h3>
+            {% if tags %}
+                <ul class="sidebar-list">
+                    {% for tag_item, articles_list in tags %}
+                        <li class="sidebar-item">
+                            <a href="{{ SITEURL }}/tag/{{ tag_item.slug }}.html" class="sidebar-link">
+                                <span>{{ tag_item.name }}</span>
+                                <span class="sidebar-count">({{ articles_list|length }})</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="sidebar-empty">{{ t.get('tags_label', 'Tags') }}</p>
+            {% endif %}
+        </div>
+    </aside>
+    {% endif %}
+</div>
+{% endblock %}
+
