@@ -18,8 +18,8 @@
     /* Typography */
     --font-family-base: "Inter", "Liberation Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
     --font-family-mono: "Fira Code", "SFMono-Regular", Menlo, Consolas, monospace;
-    --font-size-mono: 1.05rem;
-    --font-size-base: 1.15rem;
+    --font-size-mono: 0.95rem;
+    --font-size-base: 1.00rem;
     --line-height-base: 1.5;
 
     /* Effects */
