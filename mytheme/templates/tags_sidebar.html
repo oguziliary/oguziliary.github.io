@@ -1,7 +1,14 @@
 {% if tags is defined %}
 <aside class="sidebar">
     <div class="sidebar-section">
-        <h3 class="sidebar-heading">{{ t.get('tags_label', 'Tags') }}</h3>
+        <input type="text" 
+               id="post-search" 
+               class="sidebar-search" 
+               placeholder="Search posts..." 
+               aria-label="Search posts by title">
+    </div>
+    <div class="sidebar-section">
+        <h3 class="sidebar-heading"></h3>
         {% if tags %}
             {% set ns_tags = namespace(superior=[], other=[]) %}
             {% for tag_item, articles_list in tags %}
@@ -15,7 +22,7 @@
                 {% for tag_item, articles_list in ns_tags.superior %}
                     <li class="sidebar-item">
                         <a href="{{ SITEURL }}/tag/{{ tag_item.slug }}.html" class="sidebar-link">
-                            <span>{{ tag_item.name }}</span>
+                            <span> posts in {{ tag_item.name }} </span>
                             <span class="sidebar-count">({{ articles_list|length }})</span>
                         </a>
                     </li>

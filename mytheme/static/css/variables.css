@@ -1,13 +1,13 @@
 /* CSS custom properties for easy theming */
 :root {
     /* Layout */
-    --container-max-width: 850px;
-    --container-padding: 40px;
+    --container-max-width: 800px;
+    --container-padding: 16px;
     --page-padding: 20px;
 
     /* Colors */
-    --color-page-bg: #fbe8b7;         /* html background */
-    --color-body-bg: #fef7e7;         /* content background */
+    --color-page-bg: #fefefe;         /* html background */
+    --color-body-bg: #ffffff;         /* content background */
     --color-text: #2c2620;
     --color-border: #d3cbbd;
     --color-muted: #766d61;
@@ -40,8 +40,8 @@
 }
 
 :root.theme-light {
-    --color-page-bg: #fbe8b7;         /* html background */
-    --color-body-bg:#fcf7eb;         /* content background */
+    --color-page-bg: #fafafa;         /* html background */
+    --color-body-bg: #ffffff;         /* content background */
     --color-text: #2c2620;
     --color-border: #d3cbbd;
     --color-muted: #766d61;

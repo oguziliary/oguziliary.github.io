@@ -18,7 +18,7 @@
 <div class="content-layout">
     <div class="content-main">
         <section class="tag-header">
-            <h1 class="tag-title">{{ tag.name }}</h1>
+            <h1 class="tag-title">{{ "blogic" if tag.name == "english" else "bloguz" if tag.name == "turkish" else tag.name }}</h1>
             <p class="tag-count">{{ articles|length }} {{ 'article' if articles|length == 1 else 'articles' }}</p>
         </section>
 
