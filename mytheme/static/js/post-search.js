@@ -1,18 +1,31 @@
 (function() {
-    function initSearch() {
+    function initFilters() {
         var searchInput = document.getElementById('post-search');
-        if (!searchInput) {
+        var langButtons = document.querySelectorAll('.lang-filter-button');
+
+        // No posts / filters on this page
+        var posts = document.querySelectorAll('.content-main .post-list');
+        if (!posts.length) {
             return;
         }
 
-        function filterPosts(searchTerm) {
-            var posts = document.querySelectorAll('.content-main .post-list');
-            var term = searchTerm.toLowerCase().trim();
-            var hasResults = false;
+        function getActiveLanguages() {
+            var active = [];
+            langButtons.forEach(function(btn) {
+                if (btn.classList.contains('lang-filter-button--active')) {
+                    var lang = btn.getAttribute('data-lang');
+                    if (lang) {
+                        active.push(lang);
+                    }
+                }
+            });
+            return active;
+        }
 
-            if (posts.length === 0) {
-                return;
-            }
+        function updatePosts() {
+            var term = searchInput ? searchInput.value.toLowerCase().trim() : '';
+            var activeLangs = getActiveLanguages();
+            var hasResults = false;
 
             posts.forEach(function(post) {
                 var titleElement = post.querySelector('h2 a');
@@ -21,24 +34,26 @@
                 }
 
                 var title = titleElement.textContent.toLowerCase();
-                var matches = term === '' || title.includes(term);
+                var postLang = post.getAttribute('data-lang') || '';
 
-                if (matches) {
-                    post.style.display = '';
+                var matchesSearch = term === '' || title.includes(term);
+                var matchesLang = !activeLangs.length || activeLangs.indexOf(postLang) !== -1;
+                var visible = matchesSearch && matchesLang;
+
+                post.style.display = visible ? '' : 'none';
+                if (visible) {
                     hasResults = true;
-                } else {
-                    post.style.display = 'none';
                 }
             });
 
             // Show a message if no results found
             var noResultsMsg = document.getElementById('no-search-results');
-            if (term && !hasResults) {
+            if ((term || activeLangs.length) && !hasResults) {
                 if (!noResultsMsg) {
                     noResultsMsg = document.createElement('p');
                     noResultsMsg.id = 'no-search-results';
                     noResultsMsg.className = 'no-search-results';
-                    noResultsMsg.textContent = 'No posts found matching "' + searchTerm + '"';
+                    noResultsMsg.textContent = 'No posts found matching current filters.';
                     var contentMain = document.querySelector('.content-main');
                     if (contentMain) {
                         contentMain.appendChild(noResultsMsg);
@@ -49,21 +64,60 @@
             }
         }
 
-        // Search on input (real-time)
-        searchInput.addEventListener('input', function(e) {
-            filterPosts(e.target.value);
-        });
+        // Initialize language buttons (EN / TR)
+        // Both buttons are active by default, regardless of page language
+        if (langButtons.length) {
+            var defaultActive = ['en', 'tr'];
 
-        // Initialize - show all posts
-        filterPosts('');
+            langButtons.forEach(function(btn) {
+                var lang = (btn.getAttribute('data-lang') || '').toLowerCase();
+                var isActive = defaultActive.indexOf(lang) !== -1;
+                if (isActive) {
+                    btn.classList.add('lang-filter-button--active');
+                    btn.setAttribute('aria-pressed', 'true');
+                } else {
+                    btn.classList.remove('lang-filter-button--active');
+                    btn.setAttribute('aria-pressed', 'false');
+                }
+
+                btn.addEventListener('click', function() {
+                    var currentlyActive = btn.classList.contains('lang-filter-button--active');
+
+                    if (currentlyActive) {
+                        // Only allow turning off if at least one other button stays active
+                        var activeCount = getActiveLanguages().length;
+                        if (activeCount <= 1) {
+                            return;
+                        }
+                        btn.classList.remove('lang-filter-button--active');
+                        btn.setAttribute('aria-pressed', 'false');
+                    } else {
+                        btn.classList.add('lang-filter-button--active');
+                        btn.setAttribute('aria-pressed', 'true');
+                    }
+
+                    updatePosts();
+                });
+            });
+        }
+
+        // Search on input (real-time)
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                updatePosts();
+            });
+        }
+
+        // Initial state - apply filters once
+        updatePosts();
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initSearch);
+        document.addEventListener('DOMContentLoaded', initFilters);
     } else {
         // DOM is already ready
-        initSearch();
+        initFilters();
     }
 })();
 

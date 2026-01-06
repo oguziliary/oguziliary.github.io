@@ -20,6 +20,20 @@
         </section>
         {% endif %}
 
+        {# Language toggle buttons (EN / TR) #}
+        <div class="lang-filter" aria-label="Filter posts by language">
+            <button type="button"
+                    class="lang-filter-button"
+                    data-lang="en">
+                EN
+            </button>
+            <button type="button"
+                    class="lang-filter-button"
+                    data-lang="tr">
+                TR
+            </button>
+        </div>
+
         {% set source_articles = articles if articles is defined else [] %}
         {% set ns = namespace(items=[], seen=[]) %}
         {% set include_translations = is_index_page %}
@@ -46,8 +60,12 @@
         {% endif %}
 
         {% for article in display_items %}
-        <article class="post-list">
-            <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
+        <article class="post-list" data-lang="{{ article.lang or current_lang }}">
+            {% set lang_code = (article.lang or current_lang)|lower %}
+            <h2>
+                <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
+                <span class="post-lang-tag">{{ lang_code|upper }}</span>
+            </h2>
             <p class="post-meta">{{ article.date|format_date(current_lang) }}</p>
             <p class="summary">{{ article.summary }}</p>
         </article>
